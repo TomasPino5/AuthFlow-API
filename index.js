@@ -40,10 +40,10 @@ app.post("/login", (req, res) => {
     }
 })
 
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     const { username, password } = req.body
     try {
-        const { id } = UserRepository.create({ username, password })
+        const { id } = await UserRepository.create({ username, password })
         const user = {id: id, username}
         tokenVerify(res, user)
         res.send('Se ha creado el usuario correctamente')

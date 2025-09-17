@@ -13,11 +13,11 @@ export const User = Schema('User', {
 })
 
 export class UserRepository {
-    static create ({ username, password}) {
+    static async create ({ username, password}) {
         const id = crypto.randomUUID()
-        const hashedPass = bcrypt.hashSync(password, process.env.SALT_NUMBER)
+        const hashedPass = bcrypt.hashSync(password, Number(process.env.SALT_NUMBER))
 
-        User.create({
+        await User.create({
             id: id,
             username,
             password: hashedPass
