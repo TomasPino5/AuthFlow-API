@@ -1,6 +1,8 @@
 import express from "express"
 import cookieParser from "cookie-parser"
 import jwt from "jsonwebtoken"
+import { UserRepository } from "./db-controller.js"
+import { tokenVerify } from './token-verify.js'
 import dotenv from "dotenv"
 dotenv.config({ override: true });
 
@@ -20,12 +22,34 @@ app.use((req, res, next) => {
         req.session.user = data
         next()
     } catch (error) {
-        return res.status(401).json({ error: "Token inválido o expirado" })
+        req.session.user = null
     }
 })
 
 app.get("/", (req, res) => {
-    res.send("Hello World")
+    const { user } = req.session
+    res.render('index', user) 
+})
+
+app.post("/login", (req, res) => {
+    const { username, password } = req.body
+    try {
+        
+    } catch (error) {
+        
+    }
+})
+
+app.post('/register', (req, res) => {
+    const { username, password } = req.body
+    try {
+        const { id } = UserRepository.create({ username, password })
+        const user = {id: id, username}
+        tokenVerify(res, user)
+        res.send('Se ha creado el usuario correctamente')
+    } catch (error) {
+        res.status(400).send('Ocurrio un error al registrarse')
+    }
 })
 
 app.listen(process.env.PORT, () => {
