@@ -50,7 +50,7 @@ app.post("/login", async (req, res) => {
         const user = await UserRepository.login({ username, password })
         tokenVerify(res, user)
     } catch (error) {
-        res.status(400).json({ message: 'Ocurrio un error al loguearse' })
+        res.status(400).json({ message: error.message })
     }
 })
 

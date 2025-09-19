@@ -14,5 +14,5 @@ export const tokenVerify = (res, user) => {
         sameSite: 'strict', //la cookie solo se puede acceder en el mismo dominio
         maxAge: 1000 * 60 * 60, //solo tiene validez de una hora
     }).send({ user })
-    
+ //se debe agregar el refresh token   
 }
