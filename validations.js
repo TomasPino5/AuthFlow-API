@@ -17,11 +17,19 @@ export class Validations {
 
     static async loginValidations(username, password) {
         const user = await User.findOne({ username })
-        if (!user) throw new Error("No se encontro el usuario");
-        
+        if (!user) throw new Error("Usuario o contraseña incorrectos");
         const isValid = await bcrypt.compare(password, user.password)
-        if (!isValid) throw new Error("Contraseña incorrecta")
+        if (!isValid) throw new Error("Usuario o contraseña incorrectos");
 
         return user
+    }
+
+    static refreshValidations(refreshToken, user) {
+        if(!refreshToken) throw new Error("No se pudo refrescar el token")
+        if(!user) throw new Error("No se encuentra logueado")
+    }
+
+    static portectedValidations(user) {
+        if(!user) throw new Error("No tiene acceso a esta pagina")
     }
 }
