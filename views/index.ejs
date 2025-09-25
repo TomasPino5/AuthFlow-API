@@ -123,6 +123,32 @@
         const registerForm = $('#register-form')
         const registerSpan = $('#register-form span')
         const logoutButton = $('#close-session')
+        const registerPass = $('#register-password')
+        const confirmPass = $('#resgister-confirm-password')
+
+        //validaciones de input
+        registerPass.addEventListener("input", () => {
+            if (registerPass.value && confirmPass.value && registerPass.value !== confirmPass.value) {
+                registerSpan.innerText = "Las contraseñas no coinciden"
+                registerSpan.style.color = 'red'
+                return false;
+            } else {
+                registerSpan.innerText = ""
+                return true;
+            }
+        })
+        confirmPass.addEventListener("input", () => {
+            if (registerPass.value && confirmPass.value && registerPass.value !== confirmPass.value) {
+                registerSpan.innerText = "Las contraseñas no coinciden"
+                registerSpan.style.color = 'red'
+                return false;
+            } else {
+                registerSpan.innerText = ""
+                return true;
+            }
+        })
+
+        //validaciones de submit
         loginForm?.addEventListener('submit', e => {
             e.preventDefault()
             const username = $('#login-username').value
@@ -205,8 +231,9 @@
                 }
             })
                 .then(res => {
-                    console.log(res)
-                    window.location.href = ('/')
+                    if (res.ok) {
+                        window.location.href = ('/')
+                    }
                 })
         })
     </script>
