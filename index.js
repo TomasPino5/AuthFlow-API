@@ -9,9 +9,8 @@ dotenv.config({ override: true });
 
 const app = express()
 
-app.set('view engine', 'ejs') // Le dice a express que las vistas se van a reenderizar utilizando ejs
-
 //middlewares
+app.set('view engine', 'ejs') // Le dice a express que las vistas se van a reenderizar utilizando ejs
 app.use(express.json())
 app.use(cookieParser())
 
@@ -57,6 +56,8 @@ app.post('/register', async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 })
+//agregar para que el usuario no se pueda loguear con mismo usuario y contraseña
+//en el front agregar validaciones en tiempo real(contraseña corta, mismo nombre de usuario que contraseña, etc...)
 
 app.post("/login", async (req, res) => {
     const { username, password } = req.body
