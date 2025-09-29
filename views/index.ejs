@@ -10,73 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: "Roboto", sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100hv;
-            margin: 0;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            margin: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        form h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
@@ -98,6 +32,7 @@
                             <label for="login-password">Password</label>
                             <input type="password" id="login-password" name="password" required>
                             <button type="submit">Login</button>
+                            <p>New user? <a href="/register">register</a></p>
                             <span>&nbsp;</span>
                         </form>
                     </div>
@@ -116,152 +51,7 @@
                     </div>
                     <% } %>
     </div>
-    <script>
-        const $ = el => document.querySelector(el)
-        const loginForm = $('#login-form')
-        const loginSpan = $('#login-form span')
-        const registerForm = $('#register-form')
-        const registerSpan = $('#register-form span')
-        const logoutButton = $('#close-session')
-        const registerPass = $('#register-password')
-        const confirmPass = $('#resgister-confirm-password')
-        const registerUser = $('#register-username')
-
-        //validaciones de input
-        registerUser?.addEventListener("input", () => {
-            if (!isNaN(Number(registerUser.value)) && registerUser.value.length > 3) {
-                registerSpan.innerText = "El nombre de usuario debe tener una letra como minimo"
-                registerSpan.style.color = 'red'
-                return false;
-            } else if(registerUser.value.length > 12) {
-                registerSpan.innerText = "El nombre de usuario debe tener 12 caracteres como maximo"
-                registerSpan.style.color = 'red'
-                return false;
-            } else {
-                registerSpan.innerText = ""
-                return true;
-            }
-        })
-
-        registerPass?.addEventListener("input", () => {
-            if (registerPass.value && confirmPass.value && registerPass.value !== confirmPass.value) {
-                registerSpan.innerText = "Las contraseñas no coinciden"
-                registerSpan.style.color = 'red'
-                return false;
-            } else if(registerPass.value.length > 12 || confirmPass.value.length > 12) {
-                registerSpan.innerText = "La contraseña debe tener 12 caracteres como maximo"
-                registerSpan.style.color = 'red'
-                return false;
-            } else if(registerPass.value == registerUser.value) {
-                registerSpan.innerText = "La contraseña debe ser distinta al nombre de usuario"
-                registerSpan.style.color = 'red'
-                return false;
-            } else {
-                registerSpan.innerText = ""
-                return true;
-            }
-        })
-        //buscar manera de que no se pisen porque sale una, despues otra y despues la otra no se vuelve a salir
-
-        confirmPass?.addEventListener("input", () => {
-            if (registerPass.value && confirmPass.value && registerPass.value !== confirmPass.value) {
-                registerSpan.innerText = "Las contraseñas no coinciden"
-                registerSpan.style.color = 'red'
-                return false;
-            } else {
-                registerSpan.innerText = ""
-                return true;
-            }
-        })
-
-        //validaciones de submit
-        loginForm?.addEventListener('submit', e => {
-            e.preventDefault()
-            const username = $('#login-username').value
-            const password = $('#login-password').value
-
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            })
-                .then(async res => {
-                    if (res.ok) {
-                        loginSpan.innerText = 'Sesion Iniciada... Entrando...'
-                        loginSpan.style.color = 'green'
-                        setTimeout(() => {
-                            window.location.href = '/protected'
-                        }, 1200)
-                    } else {
-                        const errorData = await res.json()
-                        loginSpan.innerText = errorData.message || 'Error al iniciar sesion'
-                        loginSpan.style.color = 'red'
-                    }
-                })
-        })
-
-        registerForm?.addEventListener('submit', e => {
-            e.preventDefault()
-            const username = $('#register-username').value
-            const password = $('#register-password').value
-            const confirmPassword = $('#resgister-confirm-password').value
-            if (password != confirmPassword) {
-                registerSpan.innerText = "Las contraseñas no coinciden"
-                registerSpan.style.color = "red"
-                return
-            }
-            fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            })
-                .then(async res => {
-                    if (res.ok) {
-                        registerSpan.innerText = 'Usuario Registrado. Entrando...'
-                        registerSpan.style.color = 'green'
-                        setTimeout(() => {
-                            fetch('/login', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ username, password })
-                            })
-                                .then(async res => {
-                                    if (res.ok) {
-                                        window.location.href = '/protected'
-                                    } else {
-                                        const errorData = await res.json()
-                                        loginSpan.innerText = errorData.message || 'Error al iniciar sesion'
-                                        loginSpan.style.color = 'red'
-                                    }
-                                })
-                        }, 1200)
-                    } else {
-                        const errorData = await res.json()
-                        registerSpan.innerText = errorData.message || 'Error al registrar usuario'
-                        registerSpan.style.color = 'red'
-                    }
-                })
-        })
-        logoutButton?.addEventListener('click', () => {
-            fetch('/logout', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(res => {
-                    if (res.ok) {
-                        window.location.href = ('/')
-                    }
-                })
-        })
-    </script>
+    <script type="module" src="./index.js"></script>
 </body>
 
 </html>
