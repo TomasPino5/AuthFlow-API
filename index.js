@@ -30,9 +30,17 @@ app.use((req, res, next) => {
 
 //rutas
 app.get("/", (req, res) => {
+    res.redirect("/login")
+})
+
+app.get("/login", (req, res) => {
     const { user } = req.session
-    
     res.render('index', user)
+})
+
+app.get("/register", (req, res) => {
+    const { user } = req.session
+    res.render('register', user)
 })
 
 app.get("/protected", (req, res) => {
