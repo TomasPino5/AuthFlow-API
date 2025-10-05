@@ -1,10 +1,12 @@
-import { inputValidations } from "./validations.js"
+import { inputUserValidations, inputPassValidations, inputConfirmPassValidations } from "./validations.js"
 
 const $ = el => document.querySelector(el)
 const loginForm = $('#login-form')
 const loginSpan = $('#login-form span')
 const registerForm = $('#register-form')
-const registerSpan = $('#register-form span')
+const registerUserSpan = $('#register-username-span')
+const registerPassSpan = $('#register-password-span')
+const confirmPassSpan = $('#register-confirmPassword-span')
 const logoutButton = $('#close-session')
 const registerPass = $('#register-password')
 const confirmPass = $('#resgister-confirm-password')
@@ -14,7 +16,9 @@ const registerUser = $('#register-username')
 const arr = [registerUser, registerPass, confirmPass]
 arr.forEach(element => {
     element?.addEventListener("input", () => {
-        inputValidations(registerUser, registerPass, confirmPass, registerSpan)
+        inputUserValidations(registerUser, registerUserSpan)
+        inputPassValidations(registerUser, registerPass, registerPassSpan)
+        inputConfirmPassValidations(registerUser, registerPass, confirmPass, confirmPassSpan)
     })
 });
 
@@ -51,9 +55,9 @@ registerForm?.addEventListener('submit', e => {
     const username = $('#register-username').value
     const password = $('#register-password').value
     const confirmPassword = $('#resgister-confirm-password').value
-    if (password != confirmPassword) {
-        registerSpan.innerText = "Las contraseñas no coinciden"
-        registerSpan.style.color = "red"
+    if (password !== confirmPassword) {
+        confirmPassSpan.innerText = "Las contraseñas no coinciden"
+        confirmPassSpan.style.color = "red"
         return
     }
     fetch('/register', {
@@ -65,8 +69,8 @@ registerForm?.addEventListener('submit', e => {
     })
         .then(async res => {
             if (res.ok) {
-                registerSpan.innerText = 'Usuario Registrado. Entrando...'
-                registerSpan.style.color = 'green'
+                confirmPassSpan.innerText = 'Usuario Registrado. Entrando...'
+                confirmPassSpan.style.color = 'green'
                 setTimeout(() => {
                     fetch('/login', {
                         method: 'POST',
@@ -86,9 +90,11 @@ registerForm?.addEventListener('submit', e => {
                         })
                 }, 1200)
             } else {
-                const errorData = await res.json()
-                registerSpan.innerText = errorData.message || 'Error al registrar usuario'
-                registerSpan.style.color = 'red'
+                if (registerUserSpan == '' || registerPassSpan == '' || confirmPassSpan == '') {
+                    const errorData = await res.json()
+                    confirmPassSpan.innerText = errorData.message || 'Error al registrar usuario'
+                    confirmPassSpan.style.color = 'red'
+                }
             }
         })
 })
