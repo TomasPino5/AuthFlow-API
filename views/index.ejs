@@ -15,30 +15,32 @@
 </head>
 
 <body>
-    <div class="container">
-        <% if (typeof username !=='undefined' ) { %>
-            <div class="form-container">
-                <h2>Hola <%= username %>!</h2>
-                <p>Estas en el panel de administracion</p>
-                <button id="close-session">Cerrar sesion</button>
-            </div>
-            <% } %>
+    <%- include('./navbar') %>
 
-                <% if (typeof username==='undefined') { %>
-                    <div class="form-container">
-                        <form id="login-form">
-                            <h2>Login</h2>
-                            <label for="login-username">Username</label>
-                            <input type="text" id="login-username" name="username" required>
-                            <label for="login-password">Password</label>
-                            <input type="password" id="login-password" name="password" required>
-                            <span>&nbsp;</span>
-                            <button type="submit">Login</button>
-                            <p>New user? <a href="/register">register</a></p>
-                        </form>
-                    </div>
-                    <% } %>
-    </div>
+        <div class="container">
+            <% if (typeof username !=='undefined' ) { %>
+                <div class="form-container">
+                    <h2>Hola <%= username %>!</h2>
+                    <p>Estas en el panel de administracion</p>
+                    <button id="close-session">Cerrar sesion</button>
+                </div>
+                <% } %>
+
+                    <% if (typeof username==='undefined' ) { %>
+                        <div class="form-container">
+                            <form id="login-form">
+                                <h2>Login</h2>
+                                <label for="login-username">Username</label>
+                                <input type="text" id="login-username" name="username" required>
+                                <label for="login-password">Password</label>
+                                <input type="password" id="login-password" name="password" required>
+                                <span>&nbsp;</span>
+                                <button type="submit">Login</button>
+                                <p>New user? <a href="/register">register</a></p>
+                            </form>
+                        </div>
+                        <% } %>
+        </div>
 </body>
 
 </html>
