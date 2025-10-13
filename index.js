@@ -30,7 +30,8 @@ app.use((req, res, next) => {
 
 //rutas
 app.get("/", (req, res) => {
-    res.redirect("/login")
+    const { user } = req.session
+    res.render('index', user)
 })
 
 app.get("/login", (req, res) => {

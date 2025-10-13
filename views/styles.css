@@ -29,6 +29,15 @@ body {
     border: 1px solid rgb(102, 102, 102);
 }
 
+.screen {
+    border: 1px solid rgba(65, 65, 65, 0.699);
+    margin-bottom: 50px;
+}
+
+.demostration {
+    margin: 50px 0 20px 0;
+}
+
 form h2 {
     margin-bottom: 20px;
     font-size: 24px;
@@ -48,7 +57,6 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #d1d5db;
-    ;
 }
 
 button {
@@ -134,4 +142,13 @@ button:hover {
 .content {
     padding: 3rem;
     text-align: center;
+}
+
+.redirect {
+    text-decoration: none;
+    color: #745492;/
+}
+
+.redirect:hover {
+    text-decoration: underline;
 }

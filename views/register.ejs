@@ -15,48 +15,51 @@
 
 <body>
     <%- include('./navbar') %>
-        <div>
-            <h1>Autenticación segura con JWT y cookies — API lista para integrar</h1>
-            <p>Esta API proporciona un sistema completo de autenticación basado en JSON Web Tokens (JWT) con manejo
-                seguro de access tokens y refresh tokens mediante cookies HTTP-only.
-                Permite registrar, autenticar y mantener sesiones de usuario con control de expiración y renovación
-                automática de credenciales, evitando el acceso no autorizado incluso después del cierre del navegador o
-                la expiración del token principal.</p>
+        <div class="container">
+            <div>
+                <h1>Autenticación segura con JWT y cookies — API lista para integrar</h1>
+                <p>Esta API proporciona un sistema completo de autenticación basado en JSON Web Tokens (JWT) con manejo
+                    seguro de access tokens y refresh tokens mediante cookies HTTP-only.</p>
+                <p>Permite registrar, autenticar y mantener sesiones de usuario con control de expiración y renovación
+                    automática de credenciales, evitando el acceso no autorizado incluso después del cierre del
+                    navegador o la expiración del token principal.</p>
 
-            <% if (typeof username==='undefined' ) { %>
-                <div class="form-container">
-                    <form id="register-form">
-                        <h2>Register</h2>
-                        <label for="register-username">Username</label>
-                        <input type="text" id="register-username" name="username" required>
-                        <span id="register-username-span"></span>
-                        <label for="register-password">Password</label>
-                        <input type="password" id="register-password" name="password" required>
-                        <span id="register-password-span"></span>
-                        <label for="register-confirm-password">Confirm Password</label>
-                        <input type="password" id="resgister-confirm-password" name="confirm-password" required>
-                        <span id="register-confirmPassword-span"></span>
-                        <button type="submit">Register</button>
-                        <p>already have an account? <a href="/login">login</a></p>
-                    </form>
-                </div>
-                <% } %>
-                    <p>El flujo de autenticación está diseñado para integrarse fácilmente en cualquier aplicación web o
-                        móvil:
+                <h3 class="demostration">En el recuadro a continuación podés ver una demostración interactiva de cómo
+                    funciona el ciclo de autenticación completo, desde el inicio de sesión hasta la expiración y
+                    renovación de tokens:</h3>
+                <% if (typeof username==='undefined' ) { %>
+                    <div class="screen">
+                        <div class="form-container">
+                            <form id="register-form">
+                                <h2>Register</h2>
+                                <label for="register-username">Username</label>
+                                <input type="text" id="register-username" name="username" required>
+                                <span id="register-username-span"></span>
+                                <label for="register-password">Password</label>
+                                <input type="password" id="register-password" name="password" required>
+                                <span id="register-password-span"></span>
+                                <label for="register-confirm-password">Confirm Password</label>
+                                <input type="password" id="resgister-confirm-password" name="confirm-password" required>
+                                <span id="register-confirmPassword-span"></span>
+                                <button type="submit">Register</button>
+                                <p>already have an account? <a class="redirect" href="/login">login</a></p>
+                            </form>
+                        </div>
+                    </div>
+                    <% } %>
+                        <p>El flujo de autenticación está diseñado para integrarse fácilmente en cualquier
+                            aplicación web o móvil:
 
-                        Login y registro de usuarios con verificación de credenciales.
+                        <p>• Login y registro de usuarios con verificación de credenciales.</p>
 
-                        Generación y almacenamiento seguro de tokens en cookies.
+                        <p>• Generación y almacenamiento seguro de tokens en cookies.</p>
 
-                        Renovación automática de sesión mediante refresh tokens.
+                        <p>• Renovación automática de sesión mediante refresh tokens.</p>
 
-                        Protección de rutas privadas con validación de JWT.
+                        <p>• Protección de rutas privadas con validación de JWT.</p>
 
-                        Cierre de sesión que invalida los tokens activos.
-
-                        En el recuadro a continuación podés ver una demostración interactiva de cómo funciona el ciclo
-                        de autenticación completo — desde el inicio de sesión hasta la expiración y renovación de
-                        tokens.</p>
+                        <p>• Cierre de sesión que invalida los tokens activos.</p>
+            </div>
         </div>
 </body>
 
