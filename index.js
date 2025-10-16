@@ -55,10 +55,10 @@ app.get("/protected", (req, res) => {
 })
 
 app.post('/register', async (req, res) => {
-    const { username, password } = req.body
+    const { username, password, apiKey } = req.body
     try {
-        const id = await UserRepository.create({ username, password })
-        const user = { id: id, username }
+        const id = await UserRepository.create({ username, password, apiKey })
+        const user = { id: id, username, apiKey }
         accessTokenController(res, user)
         refreshTokenController(res, user)
         res.send({ user })
@@ -68,9 +68,9 @@ app.post('/register', async (req, res) => {
 })
 
 app.post("/login", async (req, res) => {
-    const { username, password } = req.body
+    const { username, password, apiKey } = req.body
     try {
-        const user = await UserRepository.login({ username, password })
+        const user = await UserRepository.login({ username, password, apiKey })
         accessTokenController(res, user)
         refreshTokenController(res, user)
         res.send({ user })

@@ -2,13 +2,13 @@ import bcrypt from 'bcrypt'
 import { User } from './db-controller.js'
 
 export class Validations {
-    static async createValidations(username, password) {
+    static async createValidations(username, password, apiKey) {
         if(!isNaN(Number(username))) throw new Error("El nombre de usuario debe tener una letra como minimo");
         if(username.length <= 6) throw new Error("El nombre de usuario debe tener 6 caracteres como minimo");
         if(username.length > 12) throw new Error("El nombre de usuario debe tener 12 caracteres como maximo");
         if(!/^[A-Za-z0-9]+$/.test(username)) throw new Error("El nombre de usuario solo puede contener letras y números, sin espacios ni caracteres especiales");
         
-        const user = await User.findOne({ username })
+        const user = await User.findOne({ username, apiKey })
         if (user) throw new Error('El usuario ya existe')
             
         if(username == password) throw new Error("La contraseña debe ser distinta al nombre de usuario");
@@ -18,11 +18,18 @@ export class Validations {
         if(password.length > 16) throw new Error("La contraseña debe tener 16 caracteres como maximo");
     }
 
-    static async loginValidations(username, password) {
-        const user = await User.findOne({ username })
+    static async loginValidations(username, password, apiKey) {
+        const user = await User.findOne({ username, apiKey })
         if (!user) throw new Error("Usuario o contraseña incorrectos");
         const isValid = await bcrypt.compare(password, user.password)
         if (!isValid) throw new Error("Usuario o contraseña incorrectos");
+
+        return user
+    }
+
+    static async apiKeyValidations(apiKey) {
+        const user = await User.find({ apiKey })
+        if (!user) throw new Error("No existen usuarios o la api key es incorrecta");
 
         return user
     }
