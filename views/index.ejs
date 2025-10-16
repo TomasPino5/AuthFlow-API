@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
     <script type="module" src="./index.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -35,38 +36,38 @@
                         <p>Estas en el panel de administracion</p>
                         <button id="close-session">Cerrar sesion</button>
                     </div>
-                    <% } %>
+                <% } %>
 
-                        <% if (typeof username==='undefined' ) { %>
-                            <div class="screen">
-                                <div class="form-container">
-                                    <form id="login-form">
-                                        <h2>Login</h2>
-                                        <label for="login-username">Username</label>
-                                        <input type="text" id="login-username" name="username" required>
-                                        <label for="login-password">Password</label>
-                                        <input type="password" id="login-password" name="password" required>
-                                        <span>&nbsp;</span>
-                                        <button type="submit">Login</button>
-                                        <p>New user? <a class="redirect" href="/register">register</a></p>
-                                    </form>
-                                </div>
-                            </div>
-                            <% } %>
-                                <p>El flujo de autenticación está diseñado para integrarse fácilmente en cualquier
-                                    aplicación web o móvil:
+                <% if (typeof username==='undefined' ) { %>
+                    <div class="screen">
+                        <div class="form-container">
+                            <form id="login-form">
+                                <h2>Login</h2>
+                                <label for="login-username">Username</label>
+                                <input type="text" id="login-username" name="username" required>
+                                <label for="login-password">Password</label>
+                                <input type="password" id="login-password" name="password" required>
+                                <span>&nbsp;</span>
+                                <button type="submit">Login</button>
+                                <p>New user? <a class="redirect" href="/register">register</a></p>
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+                <p>El flujo de autenticación está diseñado para integrarse fácilmente en cualquier aplicación web o móvil:
 
-                                <p>• Login y registro de usuarios con verificación de credenciales.</p>
+                <p>• Login y registro de usuarios con verificación de credenciales.</p>
 
-                                <p>• Generación y almacenamiento seguro de tokens en cookies.</p>
+                <p>• Generación y almacenamiento seguro de tokens en cookies.</p>
 
-                                <p>• Renovación automática de sesión mediante refresh tokens.</p>
+                <p>• Renovación automática de sesión mediante refresh tokens.</p>
 
-                                <p>• Protección de rutas privadas con validación de JWT.</p>
+                <p>• Protección de rutas privadas con validación de JWT.</p>
 
-                                <p>• Cierre de sesión que invalida los tokens activos.</p>
+                <p>• Cierre de sesión que invalida los tokens activos.</p>
             </div>
         </div>
+        <%- include('./footer') %>
 </body>
 
 </html>

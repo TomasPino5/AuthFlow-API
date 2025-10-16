@@ -152,3 +152,67 @@ button:hover {
 .redirect:hover {
     text-decoration: underline;
 }
+
+.footer {
+  background-color: #0d1117;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  border-top: 1px solid #1f2329;
+  position: relative;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-icons {
+   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #1f2329;
+  border-radius: 20px;
+  padding: 3px 10px;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.badge.latest {
+  border: 1px solid #3cb043;
+  color: #7ef07e;
+}
+
+.badge span {
+  margin-left: 4px;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  color: #ccc;
+  transition: color 0.2s;
+  font-size: 16px;
+}
+
+.social-icons a:hover {
+  color: #fff;
+}
